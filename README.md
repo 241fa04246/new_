@@ -49,8 +49,8 @@ To deploy to a cloud server that stays online 24/7 even when your PC is turned o
    git remote add origin https://github.com/<your-username>/<repo-name>.git
    git push -u origin main
    ```
-3. On Render, click **"New +" ➔ "Web Service"** and connect your GitHub repo.
-4. Render will automatically detect [`render.yaml`](render.yaml). Set `ADMIN_PASSWORD` to a unique password of at least 16 characters when prompted; this protects the restaurant portal and order-management APIs.
+3. On Render, click **"New +" ➔ "Blueprint"** and connect your GitHub repo.
+4. Render will read [`render.yaml`](render.yaml). Set `ADMIN_PASSWORD` to a unique password of at least 16 characters when prompted; this protects the restaurant portal and order-management APIs.
    - **Environment**: Node
    - **Build Command**: *(leave blank)*
    - **Start Command**: `node server/server.js`
