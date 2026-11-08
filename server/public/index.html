@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>QuickBite Express | Delicious Food Delivered Hot & Fast</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Network Announcement Bar -->
+  <aside class="network-banner" id="networkBanner">
+    <div class="banner-container">
+      <div class="banner-left">
+        <span class="live-dot"></span>
+        <span class="banner-text"><strong>Multi-Device Ready:</strong> Shareable on any phone or PC on your network!</span>
+        <code class="network-badge" id="networkUrlBadge">http://...</code>
+      </div>
+      <div class="banner-actions">
+        <button class="btn-copy-link" id="btnCopyExternalLink" title="Copy external link to open on phone or other systems">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+          Copy External Link
+        </button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <div class="nav-brand" id="brandLogo">
+        <div class="brand-icon">🍔</div>
+        <div class="brand-text">
+          <span class="brand-name">QuickBite<span class="brand-accent">Express</span></span>
+          <span class="brand-tagline">Chef-crafted • 25m Delivery</span>
+        </div>
+      </div>
+
+      <div class="nav-search">
+        <div class="search-input-wrapper">
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="searchInput" placeholder="Search burgers, pizzas, ramen, bowls...">
+          <button class="search-clear" id="searchClearBtn" style="display:none;">&times;</button>
+        </div>
+      </div>
+
+      <div class="nav-actions">
+        <!-- Veg Filter Toggle -->
+        <label class="veg-toggle" title="Filter vegetarian items">
+          <input type="checkbox" id="vegFilterToggle">
+          <span class="veg-slider"></span>
+          <span class="veg-label">🌱 Veg Only</span>
+        </label>
+
+        <!-- Orders Button -->
+        <button class="nav-btn" id="btnMyOrders" title="View order history & live tracking">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Orders</span>
+          <span class="badge active-orders-badge" id="navOrdersBadge" style="display:none;">0</span>
+        </button>
+
+        <!-- Kitchen / Admin Portal -->
+        <button class="nav-btn btn-admin" id="btnKitchenAdmin" title="Open restaurant kitchen manager">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+          <span>Kitchen / Admin</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button class="nav-btn btn-cart" id="btnCartDrawer">
+          <div class="cart-icon-wrapper">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+            <span class="cart-badge" id="cartCountBadge">0</span>
+          </div>
+          <span class="cart-btn-price" id="cartHeaderTotal">$0.00</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Layout -->
+  <main class="main-container">
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-content">
+        <div class="hero-badge">⚡ Ultra-Fast 25 Min Delivery</div>
+        <h1 class="hero-title">Savor the Best Flavors, <br><span class="hero-gradient">Delivered to Your Doorstep.</span></h1>
+        <p class="hero-subtitle">Handcrafted artisanal burgers, stone-baked pizzas, vibrant ramen bowls, and decadent desserts made with premium fresh ingredients.</p>
+        <div class="hero-coupon-pill" id="heroCouponCard">
+          <span class="coupon-tag">HOT DEAL</span>
+          <span>Use coupon code <strong>TASTY20</strong> for <strong>20% OFF</strong> your entire order!</span>
+          <button class="btn-apply-quick-coupon" id="btnApplyHeroCoupon">Copy Code</button>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card-stat top-left">
+          <span class="stat-emoji">⭐</span>
+          <div>
+            <div class="stat-number">4.9 / 5.0</div>
+            <div class="stat-label">2,400+ Foodies</div>
+          </div>
+        </div>
+        <div class="hero-card-stat bottom-right">
+          <span class="stat-emoji">🛵</span>
+          <div>
+            <div class="stat-number">Avg 22 min</div>
+            <div class="stat-label">Hot Delivery</div>
+          </div>
+        </div>
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Delicious Food Feast" class="hero-img">
+      </div>
+    </section>
+
+    <!-- Categories Tabs -->
+    <section class="categories-section">
+      <div class="section-header">
+        <h2 class="section-title">Explore Our Menu</h2>
+        <span class="section-count" id="menuItemCount">Showing all items</span>
+      </div>
+      <div class="category-pills" id="categoryPillsContainer">
+        <button class="cat-pill active" data-category="All">🍽️ All</button>
+        <button class="cat-pill" data-category="Burgers">🍔 Burgers</button>
+        <button class="cat-pill" data-category="Pizzas">🍕 Pizzas</button>
+        <button class="cat-pill" data-category="Bowls & Asian">🍜 Bowls & Asian</button>
+        <button class="cat-pill" data-category="Healthy & Salads">🥗 Healthy & Salads</button>
+        <button class="cat-pill" data-category="Desserts">🍰 Desserts</button>
+        <button class="cat-pill" data-category="Beverages">🧋 Beverages</button>
+      </div>
+    </section>
+
+    <!-- Food Menu Grid -->
+    <section class="menu-section">
+      <div class="menu-grid" id="menuGrid">
+        <div class="loading-spinner">
+          <div class="spinner"></div>
+          <p>Loading chef's fresh menu...</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Item Customization Modal -->
+  <div class="modal-overlay" id="itemModalOverlay">
+    <div class="modal-box item-modal">
+      <button class="modal-close-btn" id="closeItemModal">&times;</button>
+      <div class="item-modal-body" id="itemModalBody">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="drawer-overlay" id="cartDrawerOverlay">
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="drawer-header">
+        <div class="drawer-title">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+          <h3>Your Food Cart</h3>
+          <span class="cart-items-counter" id="drawerItemCount">0 items</span>
+        </div>
+        <button class="drawer-close-btn" id="closeCartDrawer">&times;</button>
+      </div>
+
+      <!-- Cart Items List -->
+      <div class="drawer-items" id="drawerItemsList">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Cart Footer & Billing -->
+      <div class="drawer-footer" id="drawerFooter">
+        <!-- Promo Coupon Input -->
+        <div class="coupon-section">
+          <div class="coupon-input-box">
+            <input type="text" id="couponInput" placeholder="Enter coupon code (e.g. TASTY20)" uppercase>
+            <button class="btn-coupon-apply" id="btnApplyCoupon">Apply</button>
+          </div>
+          <div class="coupon-feedback" id="couponFeedback"></div>
+        </div>
+
+        <!-- Bill Details -->
+        <div class="bill-breakdown">
+          <div class="bill-row">
+            <span>Subtotal</span>
+            <span id="billSubtotal">$0.00</span>
+          </div>
+          <div class="bill-row discount-row" id="billDiscountRow" style="display:none;">
+            <span>Discount (<span id="billDiscountCode">TASTY20</span>)</span>
+            <span id="billDiscountAmount">-$0.00</span>
+          </div>
+          <div class="bill-row">
+            <span>Delivery Fee</span>
+            <span id="billDelivery">$3.99</span>
+          </div>
+          <div class="bill-row">
+            <span>Taxes & Fees (8%)</span>
+            <span id="billTax">$0.00</span>
+          </div>
+          <div class="bill-divider"></div>
+          <div class="bill-row bill-total">
+            <span>To Pay</span>
+            <span id="billGrandTotal">$0.00</span>
+          </div>
+        </div>
+
+        <button class="btn-checkout" id="btnProceedCheckout">
+          <span>Proceed to Checkout</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div class="modal-overlay" id="checkoutModalOverlay">
+    <div class="modal-box checkout-modal">
+      <div class="checkout-header">
+        <h2>Delivery & Payment</h2>
+        <button class="modal-close-btn" id="closeCheckoutModal">&times;</button>
+      </div>
+
+      <form id="checkoutForm" class="checkout-form">
+        <div class="form-section">
+          <h4 class="form-section-title">📍 Delivery Address</h4>
+          <div class="form-row">
+            <div class="form-group full-width">
+              <label for="custName">Full Name *</label>
+              <input type="text" id="custName" placeholder="e.g. John Doe" required>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group half-width">
+              <label for="custPhone">Phone Number *</label>
+              <input type="tel" id="custPhone" placeholder="e.g. +1 (555) 019-2834" required>
+            </div>
+            <div class="form-group half-width">
+              <label for="custEmail">Email Address</label>
+              <input type="email" id="custEmail" placeholder="e.g. john@example.com">
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label for="custAddress">Full Street Address & Apt/Suite *</label>
+            <textarea id="custAddress" rows="2" placeholder="House/Flat No., Building, Street Name, Area..." required></textarea>
+          </div>
+          <div class="form-group full-width">
+            <label for="orderNotes">Cooking or Delivery Instructions (Optional)</label>
+            <input type="text" id="orderNotes" placeholder="e.g. Ring doorbell twice, extra cutlery please">
+          </div>
+        </div>
+
+        <div class="form-section">
+          <h4 class="form-section-title">💳 Payment Method</h4>
+          <div class="payment-options">
+            <label class="payment-card selected">
+              <input type="radio" name="payMethod" value="Cash on Delivery" checked>
+              <div class="payment-info">
+                <span class="pay-icon">💵</span>
+                <div>
+                  <strong>Cash on Delivery</strong>
+                  <p>Pay with cash or QR scan upon arrival</p>
+                </div>
+              </div>
+            </label>
+            <label class="payment-card">
+              <input type="radio" name="payMethod" value="Credit / Debit Card (Simulated)">
+              <div class="payment-info">
+                <span class="pay-icon">💳</span>
+                <div>
+                  <strong>Card Payment (Simulated)</strong>
+                  <p>Instant contactless mock payment</p>
+                </div>
+              </div>
+            </label>
+            <label class="payment-card">
+              <input type="radio" name="payMethod" value="Instant UPI / Mobile Wallet">
+              <div class="payment-info">
+                <span class="pay-icon">📱</span>
+                <div>
+                  <strong>Instant UPI / Mobile Wallet</strong>
+                  <p>GPay, Apple Pay, PhonePe</p>
+                </div>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="checkout-summary-bar">
+          <div class="summary-left">
+            <span>Total Payable:</span>
+            <strong id="checkoutTotalAmount">$0.00</strong>
+          </div>
+          <button type="submit" class="btn-place-order" id="btnPlaceOrderSubmit">
+            Place Order Now 🚀
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Live Order Tracking Screen / Modal -->
+  <div class="modal-overlay" id="trackingModalOverlay">
+    <div class="modal-box tracking-modal">
+      <div class="tracking-top-bar">
+        <div class="tracking-id-wrap">
+          <span class="live-pulse"></span>
+          <span class="tracking-label">LIVE TRACKING</span>
+          <h2 class="tracking-id" id="trackOrderId">ORD-5401</h2>
+        </div>
+        <button class="modal-close-btn" id="closeTrackingModal">&times;</button>
+      </div>
+
+      <div class="tracking-body" id="trackingBodyContent">
+        <!-- Status Bar Banner -->
+        <div class="status-banner" id="trackingStatusBanner">
+          <div class="status-icon-wrap" id="statusIconWrap">👨‍🍳</div>
+          <div class="status-meta">
+            <h3 id="trackingStatusTitle">Preparing in Kitchen</h3>
+            <p id="trackingStatusDesc">The chef is preparing your meal with fresh ingredients.</p>
+          </div>
+          <div class="status-eta">
+            <span class="eta-label">Estimated Delivery</span>
+            <span class="eta-time" id="trackingEtaTime">22 mins</span>
+          </div>
+        </div>
+
+        <!-- 4-Step Animated Interactive Stepper -->
+        <div class="stepper-container">
+          <div class="step-progress-bar">
+            <div class="step-progress-fill" id="stepperProgressFill" style="width: 25%;"></div>
+          </div>
+          <div class="stepper-nodes">
+            <div class="step-node active" id="stepNodePlaced">
+              <div class="node-circle">📝</div>
+              <span class="node-title">Placed</span>
+              <span class="node-sub" id="stepTimePlaced">Just now</span>
+            </div>
+            <div class="step-node" id="stepNodePreparing">
+              <div class="node-circle">👨‍🍳</div>
+              <span class="node-title">Preparing</span>
+              <span class="node-sub">In Kitchen</span>
+            </div>
+            <div class="step-node" id="stepNodeOut">
+              <div class="node-circle">🛵</div>
+              <span class="node-title">On the Way</span>
+              <span class="node-sub">With Courier</span>
+            </div>
+            <div class="step-node" id="stepNodeDelivered">
+              <div class="node-circle">🏠</div>
+              <span class="node-title">Delivered</span>
+              <span class="node-sub">Enjoy your food!</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- External Link Shareable Card (Core Feature!) -->
+        <div class="share-box">
+          <div class="share-box-header">
+            <div class="share-icon">🌐</div>
+            <div class="share-info">
+              <strong>External Live Tracking Link (Open in Any Other System)</strong>
+              <p>You or anyone else on this network can track this order in real time on any mobile phone, tablet, or PC:</p>
+            </div>
+          </div>
+          <div class="share-input-group">
+            <input type="text" id="shareableLinkInput" readonly value="http://...">
+            <button class="btn-copy-share" id="btnCopyShareableLink">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy Link</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Driver & Delivery Info Grid -->
+        <div class="tracking-meta-grid">
+          <div class="meta-card driver-card">
+            <div class="driver-avatar">🛵</div>
+            <div class="driver-details">
+              <span class="driver-role">Assigned Delivery Hero</span>
+              <h4 id="trackDriverName">Marcus Vance</h4>
+              <p id="trackDriverVehicle">Honda Electric Scooter • 4.9 ★</p>
+            </div>
+            <a href="tel:+15553217654" class="btn-call-driver" id="trackDriverCall">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+              Call
+            </a>
+          </div>
+
+          <div class="meta-card address-card">
+            <span class="meta-label">Delivery Destination</span>
+            <h4 id="trackCustName">Sarah Connor</h4>
+            <p id="trackCustAddress">840 Sunset Boulevard, Suite 12B</p>
+            <p class="track-notes" id="trackOrderNotes">Notes: Buzz code #4492</p>
+          </div>
+        </div>
+
+        <!-- Items Ordered Summary -->
+        <div class="ordered-items-box">
+          <h4>Order Summary</h4>
+          <div class="ordered-items-list" id="trackItemsList">
+            <!-- Dynamically populated -->
+          </div>
+          <div class="track-cost-total">
+            <span>Total Paid (via <span id="trackPayMethod">Card</span>):</span>
+            <strong id="trackOrderTotal">$0.00</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order History Modal -->
+  <div class="modal-overlay" id="ordersHistoryOverlay">
+    <div class="modal-box history-modal">
+      <div class="history-header">
+        <div class="history-title-wrap">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <h2>All Placed Orders</h2>
+        </div>
+        <button class="modal-close-btn" id="closeHistoryModal">&times;</button>
+      </div>
+
+      <div class="history-content" id="historyListContainer">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Kitchen & Restaurant Admin Portal Modal -->
+  <div class="modal-overlay" id="adminModalOverlay">
+    <div class="modal-box admin-modal">
+      <div class="admin-header">
+        <div class="admin-title-wrap">
+          <span class="admin-badge">RESTAURANT PORTAL</span>
+          <h2>Kitchen Operations & Order Control</h2>
+        </div>
+        <button class="btn-hoc-track" id="adminLogout" type="button" hidden>Sign out</button>
+        <button class="modal-close-btn" id="closeAdminModal">&times;</button>
+      </div>
+
+      <div class="admin-login-view" id="adminLoginView">
+        <h3>Restaurant sign-in</h3>
+        <p>Enter the admin password configured for this deployment.</p>
+        <form id="adminLoginForm">
+          <div class="form-group">
+            <label for="adminPasswordInput">Admin password</label>
+            <input id="adminPasswordInput" type="password" autocomplete="current-password" required>
+          </div>
+          <p class="admin-login-error" id="adminLoginError" role="alert"></p>
+          <button class="btn-add-dish" id="adminLoginSubmit" type="submit">Sign in</button>
+        </form>
+      </div>
+
+      <div id="adminDashboardView" style="display:none;">
+      <!-- KPI Stats -->
+      <div class="admin-stats-row" id="adminStatsRow">
+        <div class="kpi-card">
+          <span class="kpi-icon">💰</span>
+          <div>
+            <div class="kpi-val" id="kpiRevenue">$0.00</div>
+            <div class="kpi-label">Total Revenue</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-icon">📦</span>
+          <div>
+            <div class="kpi-val" id="kpiOrders">0</div>
+            <div class="kpi-label">Total Orders</div>
+          </div>
+        </div>
+        <div class="kpi-card active-pulse">
+          <span class="kpi-icon">🔥</span>
+          <div>
+            <div class="kpi-val" id="kpiActive">0</div>
+            <div class="kpi-label">Active Kitchen Orders</div>
+          </div>
+        </div>
+        <div class="kpi-card">
+          <span class="kpi-icon">🍕</span>
+          <div>
+            <div class="kpi-val" id="kpiMenu">0</div>
+            <div class="kpi-label">Dishes on Menu</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Admin Tabs -->
+      <div class="admin-tabs">
+        <button class="admin-tab-btn active" id="tabAdminOrders">📋 Live Orders Queue</button>
+        <button class="admin-tab-btn" id="tabAdminMenu">🍽️ Menu Management</button>
+      </div>
+
+      <!-- Live Orders Queue View -->
+      <div class="admin-tab-content" id="adminOrdersView">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Order ID</th>
+                <th>Customer</th>
+                <th>Items Ordered</th>
+                <th>Total</th>
+                <th>Status</th>
+                <th>Change Status</th>
+                <th>Track</th>
+              </tr>
+            </thead>
+            <tbody id="adminOrdersTableBody">
+              <!-- Dynamically populated -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Menu Management View -->
+      <div class="admin-tab-content" id="adminMenuView" style="display:none;">
+        <div class="menu-admin-flex">
+          <!-- Add New Item Form -->
+          <div class="admin-add-item-card">
+            <h3>Add New Dish to Menu</h3>
+            <form id="addMenuDishForm">
+              <div class="form-group">
+                <label>Dish Name *</label>
+                <input type="text" id="newDishName" placeholder="e.g. Crispy Garlic Truffle Fries" required>
+              </div>
+              <div class="form-row">
+                <div class="form-group half-width">
+                  <label>Category *</label>
+                  <select id="newDishCategory" required>
+                    <option value="Burgers">Burgers</option>
+                    <option value="Pizzas">Pizzas</option>
+                    <option value="Bowls & Asian">Bowls & Asian</option>
+                    <option value="Healthy & Salads">Healthy & Salads</option>
+                    <option value="Desserts">Desserts</option>
+                    <option value="Beverages">Beverages</option>
+                  </select>
+                </div>
+                <div class="form-group half-width">
+                  <label>Price ($) *</label>
+                  <input type="number" id="newDishPrice" step="0.01" placeholder="9.99" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Description</label>
+                <textarea id="newDishDesc" rows="2" placeholder="Ingredients, flavor notes, special sauce..."></textarea>
+              </div>
+              <div class="form-group">
+                <label>Image URL</label>
+                <input type="url" id="newDishImage" placeholder="https://images.unsplash.com/...">
+              </div>
+              <div class="form-row">
+                <div class="form-group half-width">
+                  <label>Prep Time</label>
+                  <input type="text" id="newDishPrep" placeholder="10-15 min">
+                </div>
+                <div class="form-group half-width">
+                  <label class="checkbox-inline">
+                    <input type="checkbox" id="newDishVeg">
+                    <span>🌱 Vegetarian Dish</span>
+                  </label>
+                </div>
+              </div>
+              <button type="submit" class="btn-add-dish">Add Dish to Menu ✨</button>
+            </form>
+          </div>
+
+          <!-- Existing Dishes List -->
+          <div class="admin-menu-list-card">
+            <h3>Current Live Menu (<span id="adminLiveMenuCount">0</span> items)</h3>
+            <div class="admin-dish-list" id="adminDishList">
+              <!-- Rendered items -->
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Audio Chimes for Alerts (synthesized via Web Audio API) -->
+  <script src="app.js"></script>
+</body>
+</html>

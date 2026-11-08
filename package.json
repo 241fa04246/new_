@@ -1,0 +1,17 @@
+{
+  "name": "online-food-order-system",
+  "version": "1.0.0",
+  "description": "Full-Stack Online Food Ordering System with Live Order Tracking and Multi-Device External Link Support",
+  "main": "server/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server/server.js",
+    "dev": "node --watch server/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": ["food-delivery", "order-system", "full-stack", "live-tracking"],
+  "author": "QuickBite",
+  "license": "MIT"
+}
